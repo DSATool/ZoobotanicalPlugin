@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import dsatool.ui.ReactiveComboBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" styleClass="background" >
+   <left>
+      <VBox spacing="2" minWidth="200" prefWidth="275" maxWidth="275" >
+         <Label text="Pflanzen:" />
+         <ListView fx:id="plantList" maxHeight="Infinity" VBox.vgrow="ALWAYS" />
+         <VBox fx:id="plantBox" spacing="2" >
+            <HBox spacing="2" alignment="CENTER_LEFT" >
+               <VBox spacing="2" HBox.hgrow="ALWAYS" >
+                  <HBox spacing="2" VBox.vgrow="ALWAYS" >
+                     <Label text="Bestimmung: " />
+                     <Label fx:id="identification" />
+                  </HBox>
+                  <Label text="Verbreitung:" />
+               </VBox>
+               <Label fx:id="harvestInfo" text="&#xE88E;" minHeight="30" maxHeight="30" >
+                  <padding><Insets top="-3" right="0" bottom="0" left="0" /></padding>
+                  <font>
+                     <Font name="Material Symbols Outlined" size="30.0" />
+                  </font>
+               </Label>
+               <Button fx:id="harvestButton" prefWidth="50" text="&#xE123;" onAction="#harvestPlant" >
+                  <padding><Insets top="0" right="0" bottom="-5" left="0"/></padding>
+                  <font>
+                     <Font name="Material Symbols Outlined" size="25.0" />
+                  </font>
+                  <tooltip>
+                     <Tooltip text="Kräuter Suchen" />
+                  </tooltip>
+               </Button>
+            </HBox>
+            <TableView fx:id="prevalenceTable" fixedCellSize="28" >
+               <styleClass>
+                  <String fx:value="remove-vertical-scrollbar" />
+                  <String fx:value="remove-horizontal-scrollbar" />
+               </styleClass>
+               <columns>
+                  <TableColumn fx:id="prevalenceTerrainColumn" text="Gelände" minWidth="150" resizable="false" />
+                  <TableColumn fx:id="prevalenceDifficultyColumn" text="Suche" minWidth="60" maxWidth="60" resizable="false" style="-fx-alignment: CENTER;" />
+               </columns>
+            </TableView>
+         </VBox>
+         <HBox spacing="2" >
+            <ReactiveComboBox fx:id="terrainList" minHeight="33" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+            <Button fx:id="harvestAnyButton" minWidth="50" text="&#xE123;" onAction="#harvestAnyPlant" >
+                  <padding><Insets top="0" right="0" bottom="-5" left="0"/></padding>
+                  <font>
+                     <Font name="Material Symbols Outlined" size="25.0" />
+                  </font>
+                  <tooltip>
+                     <Tooltip text="Kräuter Suchen" />
+                  </tooltip>
+               </Button>
+         </HBox>
+      </VBox>
+   </left>
+   <center>
+      <StackPane>
+         <ScrollPane fx:id="mapPane" pannable="true" >
+            <Group>
+               <Group fx:id="map" >
+                  <ImageView preserveRatio="true" >
+                     <image>
+                        <Image url="file:./resources/images/maps/Aventurien.jpg" />
+                     </image>
+      	          </ImageView>
+                  <Group opacity="0.4" >
+                     <Group fx:id="mapRegions" />
+                  </Group>
+               </Group>
+               <Label fx:id="locationMarker" text="&#xF4C0;" style="-fx-text-fill: darkred" visible="false" >
+                  <padding><Insets top="-2" right="0" bottom="2" left="0"/></padding>
+                  <font>
+                     <Font name="Material Symbols Outlined" size="30.0" />
+                  </font>
+               </Label>
+            </Group>
+         </ScrollPane>
+         <VBox spacing="2" minWidth="123" maxWidth="123" maxHeight="135" style="-fx-background-color: -fx-background;" StackPane.alignment="BOTTOM_LEFT" >
+            <Label fx:id="harvestLabel" text="Ernte:" />
+            <PieChart fx:id="plantMonths" maxWidth="120" maxHeight="120" minWidth="120" minHeight="120" startAngle="87.5" >
+               <padding><Insets top="-10" right="-6" bottom="-10" left="-6" /></padding>
+            </PieChart>
+            <StackPane.margin>
+               <Insets>
+                  <left>1</left>
+                  <bottom>15</bottom>
+               </Insets>
+            </StackPane.margin>
+         </VBox>
+      </StackPane>
+   </center>
+</BorderPane>

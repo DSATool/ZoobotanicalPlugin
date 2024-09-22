@@ -1,0 +1,4 @@
+{
+	"releaseDate" : "@releaseDate@",
+	"releaseLink" : "https://raw.githubusercontent.com/DSATool/ZoobotanicalPlugin/master/release/Zoobotanical_@releaseDate@.zip"
+}

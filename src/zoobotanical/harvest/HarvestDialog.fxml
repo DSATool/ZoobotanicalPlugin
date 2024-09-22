@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import dsatool.ui.ReactiveComboBox?>
+<?import dsatool.ui.ReactiveSpinner?>
+
+<VBox fx:id="root" style="-fx-padding: 2, 2, 2, 2;" spacing="2" xmlns:fx="http://javafx.com/fxml" >
+   <HBox alignment="CENTER" spacing="2" >
+      <Label fx:id="difficultyLabel" text="Suchschwierigkeit:" alignment="BOTTOM_LEFT" maxWidth="Infinity" HBox.hgrow="NEVER" />
+      <ReactiveSpinner fx:id="difficultyInput" imin="-99" imax="99" initialValue="0" editable="true" prefWidth="65" />
+      <ReactiveComboBox fx:id="terrainList" minWidth="220" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+      <Label fx:id="tapLabel" text="TaP*:" alignment="BOTTOM_RIGHT" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+      <ReactiveSpinner fx:id="tapInput" imin="-99" imax="99" initialValue="0" editable="true" prefWidth="65" />
+      <CheckBox fx:id="roll" text="Auswürfeln" nodeOrientation="RIGHT_TO_LEFT" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+   </HBox>
+   <ScrollPane vbarPolicy="ALWAYS" fitToWidth="true" VBox.vgrow="ALWAYS" >
+      <VBox spacing="2" style="-fx-padding: 2, 2, 2, 2;" >
+         <HBox spacing="2" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" >
+            <Label text="Pflanze" alignment="BOTTOM_LEFT" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+            <Label text="&#xE88E;" minHeight="22" maxHeight="22" >
+               <padding><Insets top="-2" right="0" bottom="0" left="0" /></padding>
+               <font>
+                  <Font name="Material Symbols Outlined" size="20.0" />
+               </font>
+            </Label>
+            <Label text="Menge" alignment="BOTTOM_RIGHT" prefWidth="180" />
+            <Label text="Haltbarkeit" alignment="BOTTOM_RIGHT" prefWidth="120" />
+            <Label text="Wert" alignment="BOTTOM_RIGHT" prefWidth="65" />
+         </HBox>
+         <VBox fx:id="harvestedPlantsBox" spacing="2" />
+         <Separator orientation="HORIZONTAL" />
+         <HBox spacing="2" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" >
+            <Label text="Gefährliche Pflanze" alignment="BOTTOM_LEFT" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+            <Label text="&#xE88E;" minHeight="22" maxHeight="22" >
+               <padding><Insets top="-2" right="0" bottom="0" left="0" /></padding>
+               <font>
+                  <Font name="Material Symbols Outlined" size="20.0" />
+               </font>
+            </Label>
+            <Label text="Verbreitung" alignment="BOTTOM_RIGHT" prefWidth="180" />
+            <Label text="Bestimmung" alignment="BOTTOM_RIGHT" prefWidth="120" />
+            <Label prefWidth="65" />
+         </HBox>
+         <VBox fx:id="dangerousPlantsBox" spacing="2" />
+      </VBox>
+   </ScrollPane>
+   <HBox spacing="2" >
+      <Label maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+      <Button fx:id="okButton" text="Ok" prefWidth="75" />
+   </HBox>
+</VBox>

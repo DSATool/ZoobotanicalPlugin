@@ -1,0 +1,10 @@
+{
+	"releaseDate" : "2024-09-22_17-30",
+	"previousReleaseDate" : "@releaseDate@",
+	"previousReleaseLink" : "https://raw.githubusercontent.com/DSATool/ZoobotanicalPlugin/master/release/Zoobotanical_@releaseDate@.zip",
+	"updateInfo" : "https://raw.githubusercontent.com/DSATool/ZoobotanicalPlugin/master/release/update-info.json",
+	"signatureProviderName" : "SunEC",
+	"signatureKeyAlgorithm" : "EC",
+	"signatureAlgorithm" : "SHA512withECDSA",
+	"signatureKey" : "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEQABl5C47FyfqPLn+rexcUJuVT6+Rrt3dca9dWbJwvKIrpIhYjzDm0hnq62aofReamDO9gmpe59esYNj4SGq4jg=="
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="deploy" name="Zoobotanical">
+    <property name="DSATool.location" value="../DSATool"/>
+	<property name="PluginName" value="Zoobotanical"/>
+	<property name="Includes" value="dependencies/**,licenses/**,resources/**"/>
+    <target name="deploy" description="Creates JAR archive and deploys it to DSATool plugin directory">
+    	<copy todir="${DSATool.location}">
+    		<fileset dir="." includes="${Includes}"/>
+    	</copy>
+    	<path id="classpath">
+    		<fileset dir="${DSATool.location}"/>
+    	</path>
+		<mkdir dir="bin"/>
+		<javac srcdir="src" destdir="bin" classpathref="classpath" includeantruntime="false" debug="true" debuglevel="lines,vars,source" source="21" target="21"/>
+		<mkdir dir="plugins"/>
+    	<jar destfile="plugins/${PluginName}.jar">
+			<fileset dir="bin"/>
+			<metainf file="LICENSE"/>
+			<metainf file="NOTICE"/>
+			<service type="dsatool.plugins.Plugin" provider="zoobotanical.Zoobotanical"/>
+		</jar>
+    	<copy file="plugins/${PluginName}.jar" todir="${DSATool.location}/plugins"/>
+		<copy file="release/previous/release-info.json" tofile="${DSATool.location}/update/${PluginName}.json"/>
+    </target>
+	<target name="update" description="Creates a zip file for release" depends="deploy">
+		<delete dir="release/current"/>
+		<mkdir dir="release/current"/>
+		<copy todir="release/current" includeEmptyDirs="false">
+			<fileset dir="." includes="${Includes},plugins/${PluginName}.jar">
+			    <different targetdir="release/previous"/>
+			</fileset>
+		</copy>
+		<fileset id="deleted" dir="release/previous" includes="${Includes},plugins/${PluginName}.jar">
+			<present present="srconly" targetdir="."/>
+		</fileset>
+		<echo file="release/current/deleted.txt">${toString:deleted}</echo>
+		<delete>
+			<fileset file="release/current/deleted.txt">
+				<size value="3" when="less"/>
+			</fileset>
+		</delete>
+		<tstamp>
+			<format property="releaseDate" pattern="yyyy-MM-dd_HH-mm" />
+		</tstamp>
+		<loadfile srcfile="release/previous/release-info.json" property="previousReleaseDate">
+			<filterchain>
+				<linecontains>
+					<contains value="releaseDate"/>
+				</linecontains>
+				<tokenfilter>
+					<replaceregex pattern=".*: ."/>
+					<replaceregex pattern=".,"/>
+				</tokenfilter>
+				<striplinebreaks/>
+			</filterchain>
+		</loadfile>
+		<copy file="release/release-info.template" tofile="release/current/release-info.json"/>
+		<replace file="release/current/release-info.json" token="@releaseDate@" value="${releaseDate}"/>
+		<replace file="release/current/release-info.json" token="@previousReleaseDate@" value="${previousReleaseDate}"/>
+		<copy file="release/current/release-info.json" tofile="release/current/update/${PluginName}.json"/>
+		<copy file="release/current/release-info.json" tofile="${DSATool.location}/update/${PluginName}.json"/>
+		<copy file="release/update-info.template" tofile="release/update-info.json" overwrite="true"/>
+		<replace file="release/update-info.json" token="@releaseDate@" value="${releaseDate}"/>
+		<java jar="${DSATool.location}/update/SignatureTool.jar" fork="true">
+			<arg value="sign"/>
+			<arg path="release/current"/>
+			<arg path="release/${PluginName}_${releaseDate}.zip"/>
+			<arg path="release/private.key"/>
+			<arg value="SunEC"/>
+			<arg value="EC"/>
+			<arg value="SHA512withECDSA"/>
+		</java>
+		<delete dir="release/previous"/>
+		<copy todir="release/previous" includeEmptyDirs="false">
+			<fileset dir="." includes="${Includes},plugins/${PluginName}.jar"/>
+		</copy>
+		<copy file="release/current/release-info.json" todir="release/previous"/>
+		<delete dir="release/current"/>
+	</target>
+	<target name="release" description="Creates a full release as well as an update" depends="update">
+		<mkdir dir="update"/>
+		<copy file="release/release-info.template" tofile="update/${PluginName}.json"/>
+		<replace file="update/${PluginName}.json" token="@releaseDate@" value="${releaseDate}"/>
+		<replace file="update/${PluginName}.json" token="@previousReleaseDate@" value="${previousReleaseDate}"/>
+		<zip destfile="release/${PluginName}_${releaseDate}_full.zip">
+			<fileset dir="." includes="${Includes},plugins/${PluginName}.jar,update/${PluginName}.json"/>
+		</zip>
+		<delete dir="update"/>
+	</target>
+</project>

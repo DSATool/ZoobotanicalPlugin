@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import dsatool.ui.ReactiveSpinner?>
+
+<HBox spacing="2" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" >
+   <Label fx:id="name" alignment="BOTTOM_LEFT" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+   <Label fx:id="info" text="&#xE88E;" minHeight="22" maxHeight="22" >
+      <padding><Insets top="-2" right="0" bottom="0" left="0" /></padding>
+      <font>
+         <Font name="Material Symbols Outlined" size="20.0" />
+      </font>
+   </Label>
+   <Label fx:id="amount" alignment="BOTTOM_RIGHT" prefWidth="180" />
+   <Label fx:id="durability" alignment="BOTTOM_RIGHT" prefWidth="120" />
+   <Label fx:id="value" alignment="BOTTOM_RIGHT" prefWidth="65" />
+</HBox>
