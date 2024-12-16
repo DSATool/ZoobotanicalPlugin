@@ -18,9 +18,12 @@ package zoobotanical;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+
+import org.controlsfx.control.textfield.CustomTextField;
 
 import dsa41basis.util.DSAUtil;
 import dsatool.gui.GUIUtil;
@@ -41,6 +44,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -58,6 +62,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.effect.BlendMode;
@@ -88,6 +93,11 @@ public class ZoobotanicalController {
 
 	@FXML
 	private ListView<JSONObject> plantList;
+	@FXML
+	private CustomTextField search;
+	@FXML
+	private ToggleButton sortedToggle;
+
 	@FXML
 	private VBox plantBox;
 	@FXML
@@ -347,7 +357,19 @@ public class ZoobotanicalController {
 			});
 			return cell;
 		});
-		plantList.setItems(new FilteredList<>(allPlants, availablePlants::contains));
+
+		final List<String> allPlantNames = plants.keySet().stream().toList();
+
+		final SortedList<JSONObject> sortedPlants = new SortedList<>(new FilteredList<>(allPlants, availablePlants::contains), (left, right) -> -1);
+		sortedToggle.selectedProperty().addListener((o, oldV, newV) -> {
+			sortedPlants.setComparator(newV ? (left, right) -> plants.keyOf(left).compareTo(plants.keyOf(right))
+					: (left, right) -> allPlantNames.indexOf(plants.keyOf(left)) - allPlantNames.indexOf(plants.keyOf(right)));
+		});
+		plantList.setItems(sortedPlants);
+
+		search.textProperty().addListener((o, oldV, newV) -> {
+			updateAvailablePlants();
+		});
 
 		plantBox.setVisible(false);
 		plantBox.setManaged(false);
@@ -448,9 +470,15 @@ public class ZoobotanicalController {
 		}
 	}
 
+	@FXML
+	private void toggleSorted() {
+		sortedToggle.getParent().requestFocus();
+	}
+
 	private void updateAvailablePlants() {
 		for (final JSONObject plant : allPlants) {
-			if (ZoobotanicalUtil.isAvailable(plant, harvestTime == null ? null : harvestTime.getName(), selectedTerrain.get(), locationInRegion)) {
+			if (ZoobotanicalUtil.isAvailable(plant, harvestTime == null ? null : harvestTime.getName(), selectedTerrain.get(), locationInRegion)
+					&& plants.keyOf(plant).toLowerCase().contains(search.getText().toLowerCase())) {
 				availablePlants.add(plant);
 			} else {
 				if (plant == selectedPlant.get()) {

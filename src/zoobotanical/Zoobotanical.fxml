@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import org.controlsfx.control.textfield.CustomTextField?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,6 +27,24 @@
       <VBox spacing="2" minWidth="200" prefWidth="275" maxWidth="275" >
          <Label text="Pflanzen:" />
          <ListView fx:id="plantList" maxHeight="Infinity" VBox.vgrow="ALWAYS" />
+         <HBox spacing="2" >
+            <CustomTextField fx:id="search" HBox.hgrow="ALWAYS">
+            	<right>
+            	   <Label text="&#xE8B6;" textFill="gray" >
+                      <padding><Insets top="0" right="0" bottom="-5" left="0" /></padding>
+                      <font>
+                         <Font name="Material Symbols Outlined" size="20.0" />
+                      </font>
+            	   </Label>
+            	</right>
+            </CustomTextField>
+            <ToggleButton fx:id="sortedToggle" text="&#xE93B;" onAction="#toggleSorted" >
+               <padding><Insets top="0" right="4" bottom="-5" left="4" /></padding>
+               <font>
+                  <Font name="Material Symbols Outlined" size="20.0" />
+               </font>
+            </ToggleButton>
+         </HBox>
          <VBox fx:id="plantBox" spacing="2" >
             <HBox spacing="2" alignment="CENTER_LEFT" >
                <VBox spacing="2" HBox.hgrow="ALWAYS" >
