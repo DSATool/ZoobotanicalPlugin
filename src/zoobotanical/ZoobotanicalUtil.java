@@ -29,7 +29,7 @@ import jsonant.value.JSONObject;
 public class ZoobotanicalUtil {
 
 	public static List<String> terrains = List.of("Beliebiges Gelände", "Eis", "Wüste und Wüstenrand", "Gebirge", "Hochland", "Steppe", "Grasland, Wiesen",
-			"Fluss- und Seeufer, Teiche", "Küste, Strand", "Flussauen", "Sumpf und Moor", "Regenwald", "Wald", "Waldrand");
+			"Fluss- und Seeufer, Teiche", "Küste, Strand", "Flussauen", "Sumpf und Moor", "Regenwald", "Wald", "Waldrand", "Höhlen");
 
 	public static int getDifficulty(final JSONObject plant, final String terrain) {
 		final String prevalence = plant.getObj("Verbreitung").getString(terrain);

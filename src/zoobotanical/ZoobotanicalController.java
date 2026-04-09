@@ -403,7 +403,7 @@ public class ZoobotanicalController {
 					setTooltip(null);
 				} else {
 					setText(item);
-					final String prevalence = selectedPlant.get().getObj("Verbreitung").getString(item);
+					final String prevalence = selectedPlant.get().getObjOrDefault("Verbreitung", new JSONObject(null)).getString(item);
 					final String prevalenceColor = switch (prevalence) {
 						case "sehr häufig" -> "green";
 						case "häufig" -> "limegreen";
