@@ -12,7 +12,7 @@
 <?import dsatool.ui.ReactiveComboBox?>
 <?import dsatool.ui.ReactiveSpinner?>
 
-<VBox fx:id="root" style="-fx-padding: 2, 2, 2, 2;" spacing="2" xmlns:fx="http://javafx.com/fxml" >
+<VBox fx:id="root" style="-fx-padding: 4;" spacing="2" xmlns:fx="http://javafx.com/fxml" >
    <HBox alignment="CENTER" spacing="2" >
       <Label fx:id="difficultyLabel" text="Suchschwierigkeit:" alignment="BOTTOM_LEFT" maxWidth="Infinity" HBox.hgrow="NEVER" />
       <ReactiveSpinner fx:id="difficultyInput" imin="-99" imax="99" initialValue="0" editable="true" prefWidth="65" />

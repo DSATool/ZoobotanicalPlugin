@@ -49,7 +49,7 @@ public class Zoobotanical extends Plugin {
 		Credits.credits.add(new Credits("Aventurienkarten Originale und Bearbeitungen des Ulisses-Spiele Kartenpakets", "Lizenzvereinbarung",
 				Util.getAppDir() + "/licenses/Lizenzvereinbarung-Kartenpaket.txt", "https://de.wiki-aventurica.de/wiki/Kartenpaket/Lizenz",
 				Util.getAppDir() + "/resources/logos/Fanprojekt.png"));
-		Main.addDetachableToolComposite("DSA", "Pflanzen", 900, 800, () -> {
+		Main.addDetachableToolComposite("DSA", "Pflanzen", 900, 850, () -> {
 			controller = new ZoobotanicalController();
 			return controller.getRoot();
 		});

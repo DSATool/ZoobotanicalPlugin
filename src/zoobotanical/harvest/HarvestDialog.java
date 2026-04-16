@@ -21,6 +21,7 @@ import java.util.Set;
 
 import dsa41basis.util.DSAUtil;
 import dsa41basis.util.DSAUtil.Units;
+import dsatool.gui.GUIUtil;
 import dsatool.ui.ReactiveComboBox;
 import dsatool.ui.ReactiveSpinner;
 import dsatool.util.ErrorLogger;
@@ -31,14 +32,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import jsonant.value.JSONObject;
@@ -90,12 +89,8 @@ public class HarvestDialog {
 			ErrorLogger.logError(e);
 		}
 
-		final Stage stage = new Stage();
-		stage.setTitle("Kräuter Suchen" + (harvestedPlant == null ? "" : ": " + plants.keyOf(harvestedPlant)));
-		stage.setScene(new Scene(root, 660, 500)); // 85 + heroes.length * 27
-		stage.initModality(Modality.WINDOW_MODAL);
-		stage.setResizable(false);
-		stage.initOwner(window);
+		final Stage stage = GUIUtil.setupStage(root, 660, 500, "Kräuter Suchen" + (harvestedPlant == null ? "" : ": " + plants.keyOf(harvestedPlant)), window,
+				true);
 
 		okButton.setOnAction(e -> stage.close());
 		okButton.setDefaultButton(true);

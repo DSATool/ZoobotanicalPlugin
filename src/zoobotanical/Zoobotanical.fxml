@@ -30,16 +30,15 @@
          <HBox spacing="2" >
             <CustomTextField fx:id="search" HBox.hgrow="ALWAYS">
             	<right>
-            	   <Label text="&#xE8B6;" textFill="gray" >
-                      <padding><Insets top="0" right="0" bottom="-5" left="0" /></padding>
+            	   <Label text="&#xE8B6;" style="-fx-text-fill: -fx-color-text-muted;" >
+                      <padding><Insets top="0" right="-5" bottom="-5" left="0" /></padding>
                       <font>
                          <Font name="Material Symbols Outlined" size="20.0" />
                       </font>
             	   </Label>
             	</right>
             </CustomTextField>
-            <ToggleButton fx:id="sortedToggle" text="&#xE93B;" onAction="#toggleSorted" >
-               <padding><Insets top="0" right="4" bottom="-5" left="4" /></padding>
+            <ToggleButton fx:id="sortedToggle" text="&#xE93B;" onAction="#toggleSorted" style="-fx-padding: 0 4 -6 4;" >
                <font>
                   <Font name="Material Symbols Outlined" size="20.0" />
                </font>
@@ -60,8 +59,7 @@
                      <Font name="Material Symbols Outlined" size="30.0" />
                   </font>
                </Label>
-               <Button fx:id="harvestButton" prefWidth="50" text="&#xE123;" onAction="#harvestPlant" >
-                  <padding><Insets top="0" right="0" bottom="-5" left="0"/></padding>
+               <Button fx:id="harvestButton" prefWidth="50" text="&#xE123;" onAction="#harvestPlant" style="-fx-padding: 0 0 -7 0;" >
                   <font>
                      <Font name="Material Symbols Outlined" size="25.0" />
                   </font>
@@ -83,8 +81,7 @@
          </VBox>
          <HBox spacing="2" >
             <ReactiveComboBox fx:id="terrainList" minHeight="33" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-            <Button fx:id="harvestAnyButton" minWidth="50" text="&#xE123;" onAction="#harvestAnyPlant" >
-                  <padding><Insets top="0" right="0" bottom="-5" left="0"/></padding>
+            <Button fx:id="harvestAnyButton" minWidth="50" text="&#xE123;" onAction="#harvestAnyPlant" style="-fx-padding: 0 0 -7 0;" >
                   <font>
                      <Font name="Material Symbols Outlined" size="25.0" />
                   </font>
@@ -117,15 +114,14 @@
                </Label>
             </Group>
          </ScrollPane>
-         <VBox spacing="2" minWidth="123" maxWidth="123" maxHeight="135" style="-fx-background-color: -fx-background;" StackPane.alignment="BOTTOM_LEFT" >
+         <VBox spacing="2" minWidth="123" maxWidth="123" maxHeight="135" style="-fx-background-color: -fx-color-bg-1;" StackPane.alignment="BOTTOM_LEFT" >
             <Label fx:id="harvestLabel" text="Ernte:" />
             <PieChart fx:id="plantMonths" maxWidth="120" maxHeight="120" minWidth="120" minHeight="120" startAngle="87.5" >
                <padding><Insets top="-10" right="-6" bottom="-10" left="-6" /></padding>
             </PieChart>
             <StackPane.margin>
                <Insets>
-                  <left>1</left>
-                  <bottom>15</bottom>
+                  <bottom>8</bottom>
                </Insets>
             </StackPane.margin>
          </VBox>

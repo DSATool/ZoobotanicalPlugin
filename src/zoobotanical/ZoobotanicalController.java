@@ -409,8 +409,8 @@ public class ZoobotanicalController {
 						case "sehr häufig" -> "green";
 						case "häufig" -> "limegreen";
 						case "gelegentlich" -> "orange";
-						case "selten" -> "red";
-						case "sehr selten" -> "darkred";
+						case "selten" -> "orangered";
+						case "sehr selten" -> "crimson";
 						default -> "black";
 					};
 					setStyle("-fx-text-fill: " + prevalenceColor);
