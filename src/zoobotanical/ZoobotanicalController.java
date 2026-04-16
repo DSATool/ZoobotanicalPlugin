@@ -226,6 +226,7 @@ public class ZoobotanicalController {
 		plantBox.setManaged(plant != null);
 		mapRegions.getChildren().clear();
 		if (plant == null) {
+			prevalenceTable.getItems().clear();
 			plantMonths.getData().forEach(month -> month.getNode().setOpacity(1));
 			harvestInfo.setVisible(false);
 		} else {
