@@ -92,7 +92,7 @@ public class HarvestDialog {
 		final Stage stage = GUIUtil.setupStage(root, 660, 500, "Kräuter Suchen" + (harvestedPlant == null ? "" : ": " + plants.keyOf(harvestedPlant)), window,
 				true);
 
-		okButton.setOnAction(e -> stage.close());
+		okButton.setOnAction(_ -> stage.close());
 		okButton.setDefaultButton(true);
 
 		if (harvestedPlant != null) {
@@ -106,7 +106,7 @@ public class HarvestDialog {
 			selectedTerrain = selectedTerrain == null ? terrainList.getItems().getFirst() : selectedTerrain;
 
 			terrainList.getSelectionModel().selectedItemProperty().addListener(
-					(o, oldV, newV) -> difficultyInput.getValueFactory()
+					(_, _, newV) -> difficultyInput.getValueFactory()
 							.setValue(harvestedPlant.getIntOrDefault("Bestimmung", null) + ZoobotanicalUtil.getDifficulty(harvestedPlant, newV)));
 			terrainList.getSelectionModel().select(selectedTerrain);
 
@@ -135,7 +135,7 @@ public class HarvestDialog {
 			}
 		}
 
-		final ChangeListener<? super Object> updateListener = (o, oldVal, newVal) -> {
+		final ChangeListener<? super Object> updateListener = (_, _, _) -> {
 			for (final JSONObject plant : plantBoxes.keySet()) {
 				updateInterpretation(plant, plant == harvestedPlant, terrainList.getSelectionModel().getSelectedItem());
 			}

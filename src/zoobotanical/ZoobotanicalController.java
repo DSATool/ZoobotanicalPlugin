@@ -133,7 +133,7 @@ public class ZoobotanicalController {
 
 	private final JSONObject plants = ResourceManager.getResource("data/Pflanzen");
 	private final ObservableSet<JSONObject> availablePlants = FXCollections.observableSet();
-	private final ObservableList<JSONObject> allPlants = FXCollections.observableArrayList(item -> new Observable[] { availablePlants });
+	private final ObservableList<JSONObject> allPlants = FXCollections.observableArrayList(_ -> new Observable[] { availablePlants });
 
 	private final ReadOnlyObjectProperty<JSONObject> selectedPlant;
 
@@ -158,13 +158,13 @@ public class ZoobotanicalController {
 		setupRegions(regionFiles);
 
 		selectedPlant = plantList.getSelectionModel().selectedItemProperty();
-		selectedPlant.addListener((o, oldV, newV) -> selectPlant(newV));
+		selectedPlant.addListener((_, _, newV) -> selectPlant(newV));
 		setupPlants();
 
 		terrainList.getItems().setAll(ZoobotanicalUtil.terrains);
 		terrainList.getSelectionModel().select(0);
 		selectedTerrain = terrainList.getSelectionModel().selectedItemProperty();
-		selectedTerrain.addListener((o, oldV, newV) -> updateAvailablePlants());
+		selectedTerrain.addListener((_, _, _) -> updateAvailablePlants());
 		harvestAnyButton.disableProperty().bind(selectedPlant.isNotNull().or(selectedTerrain.isEqualTo("Beliebiges Gelände")));
 	}
 
@@ -289,7 +289,7 @@ public class ZoobotanicalController {
 
 		@SuppressWarnings("unchecked")
 		final ChangeListener<? super Number> setInitialScale[] = new ChangeListener[1];
-		setInitialScale[0] = (o, oldV, newV) -> {
+		setInitialScale[0] = (_, _, _) -> {
 			final double initialScale = Math.max(mapPane.getWidth() / mapWidth, mapPane.getHeight() / mapHeight);
 			scaleMinimum = initialScale;
 			scale.set(initialScale);
@@ -361,14 +361,14 @@ public class ZoobotanicalController {
 
 		final List<String> allPlantNames = plants.keySet().stream().toList();
 
-		final SortedList<JSONObject> sortedPlants = new SortedList<>(new FilteredList<>(allPlants, availablePlants::contains), (left, right) -> -1);
-		sortedToggle.selectedProperty().addListener((o, oldV, newV) -> {
+		final SortedList<JSONObject> sortedPlants = new SortedList<>(new FilteredList<>(allPlants, availablePlants::contains), (_, _) -> -1);
+		sortedToggle.selectedProperty().addListener((_, _, newV) -> {
 			sortedPlants.setComparator(newV ? (left, right) -> plants.keyOf(left).compareTo(plants.keyOf(right))
 					: (left, right) -> allPlantNames.indexOf(plants.keyOf(left)) - allPlantNames.indexOf(plants.keyOf(right)));
 		});
 		plantList.setItems(sortedPlants);
 
-		search.textProperty().addListener((o, oldV, newV) -> {
+		search.textProperty().addListener((_, _, _) -> {
 			updateAvailablePlants();
 		});
 
@@ -377,12 +377,12 @@ public class ZoobotanicalController {
 
 		GUIUtil.autosizeTable(prevalenceTable);
 
-		prevalenceTable.setRowFactory(table -> {
+		prevalenceTable.setRowFactory(_ -> {
 			final TableRow<String> row = new TableRow<>();
 			final ContextMenu menu = new ContextMenu();
 
 			final MenuItem harvestItem = new MenuItem("Kräuter Suchen");
-			harvestItem.setOnAction(o -> {
+			harvestItem.setOnAction(_ -> {
 				final String item = row.getItem();
 				final JSONObject plant = selectedPlant.get();
 				new HarvestDialog(pane.getScene().getWindow(), plants, plant, item, harvestTime == null ? null : harvestTime.getName(), locationInRegion);
@@ -394,7 +394,7 @@ public class ZoobotanicalController {
 			return row;
 		});
 
-		prevalenceTerrainColumn.setCellFactory(list -> new TextFieldTableCell<String, String>() {
+		prevalenceTerrainColumn.setCellFactory(_ -> new TextFieldTableCell<String, String>() {
 			@Override
 			public void updateItem(final String item, final boolean empty) {
 				super.updateItem(item, empty);
